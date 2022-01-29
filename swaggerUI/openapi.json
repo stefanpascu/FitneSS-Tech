@@ -1,0 +1,630 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.1",
+    "title": "SmartHandBand",
+    "description": "OpenAPI Specification.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "FitneSS Tech",
+      "url": "https://github.com/stefanpascu",
+      "email": "stefanpascu1199@gmail.com"
+    }
+  },
+
+
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+
+
+  "tags": [
+    {
+      "name": "auth"
+    }
+  ],
+
+
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Endpoint for registering new user",
+        "operationId": "register",
+        "description": "Register new users",
+        "tags": [
+            "auth"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/RegistrationRequestData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200":{
+            "$ref": "#/components/responses/RegisterSuccess"
+          },
+          "403": {
+            "$ref": "#/components/responses/RegisterFail"
+          }
+        }
+      }
+    },
+    
+    "/auth/login": {
+      "post": {
+        "summary": "Endpoint for login existing user",
+        "operationId": "login",
+        "description": "Login existing users",
+        "tags": [
+          "auth"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/LoginSuccess"
+          },
+          "403": {
+            "$ref": "#/components/responses/LoginFail"
+          }
+        }
+      }
+    },
+
+    "/bpm":{
+      "get":{
+        "summary": "Get the beats per minute",
+        "operationId": "set_bpm",
+        "description": "Get the beats per minute",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "bpm succesfully recorded/retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BpmResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/steps":{
+      "get":{
+        "summary": "Get the current number of steps of the current day",
+        "operationId": "get_steps",
+        "description": "Get the current number of steps of the current day",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Show the number of steps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StepsResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No steps recorded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetStepsFail"
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "post":{
+        "summary": "Update the number of steps of the current day",
+        "operationId": "set_steps",
+        "description": "Update the number of steps of the current day",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Steps succesfully recorded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetStepsSuccess"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/temperature":{
+      "get":{
+        "summary": "Get the enviornment temperature",
+        "operationId": "get_temperature",
+        "description": "Get the enviornment temperature",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Show the enviornment temperature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemperatureResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No temperature recorded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetTemperatureFail"
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "post":{
+        "summary": "Set the enviornment temperature",
+        "operationId": "set_temperature",
+        "description": "Set the enviornment temperature",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Temperature successfully recorded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetTemperatureSuccess"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/sleep":{
+      "get":{
+        "summary": "Get the last date's number of hours of sleep",
+        "operationId": "get_sleep",
+        "description": "Get the last date's number of hours of sleep",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Show the number of hours of sleep",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SleepResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No sleep recorded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetSleepFail"
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "post":{
+        "summary": "Set the number of hours of sleep",
+        "operationId": "set_sleep",
+        "description": "Set the number of hours of sleep",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Number of hours of sleep successfully recorded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetSleepSuccess"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/theme":{
+      "get":{
+        "summary": "Get the current theme of the smartband",
+        "operationId": "get_theme",
+        "description": "Get the current theme of the smartband",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Show the current theme name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThemeResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "post":{
+        "summary": "Set the current theme of the smartband",
+        "operationId": "set_theme",
+        "description": "Set the current theme of the smartband",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Theme successfully changed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetThemeSuccess"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/status":{
+      "get":{
+        "summary": "Get the current status of the recordings",
+        "operationId": "get_status",
+        "description": "Get the current status of the recordings",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "Show the status of all recordings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+
+  "components": {
+    "schemas": {
+
+      "StatusResponse": {
+        "type": "object",
+        "properties":{
+          "status": {
+            "type": "object",
+            "properties":{
+              "bpm": {
+                "type": "string"
+              },
+              "theme": {
+                "type": "string"
+              },
+              "steps": {
+                "type": "string"
+              },
+              "distance": {
+                "type": "string"
+              },
+              "temperature": {
+                "type": "string"
+              },
+              "sleep": {
+                  "type": "object",
+                  "properties": {
+                    "total hours of sleep": {
+                      "type": "string"
+                    },
+                    "hours of rem sleep": {
+                      "type": "string"
+                    }
+                  }
+              }
+            }
+          }
+        }
+      },
+
+      "RegistrationRequestData": {
+        "type": "object",
+        "properties":{
+          "username": {
+            "type": "string"
+          },
+          "password":{
+            "type":"string"
+          }
+        }
+      },
+
+      "BpmResponse": {
+        "type": "object",
+        "properties":{
+          "status": {
+            "type": "string"
+          },
+          "data":{
+            "type": "object",
+            "properties":{
+              "id":{
+                "type": "integer"
+              },
+              "timestamp":{
+                "type": "string"
+              },
+              "bpm":{
+                "type": "integer"
+              },
+              "message":{
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "StepsResponse": {
+        "type": "object",
+        "properties":{
+          "data":{
+            "type": "object",
+            "properties":{
+              "date":{
+                "type": "string"
+              },
+              "distance":{
+                "type": "number"
+              },
+              "steps":{
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+
+      "TemperatureResponse": {
+        "type": "object",
+        "properties":{
+          "data":{
+            "type": "object",
+            "properties":{
+              "id":{
+                "type": "integer"
+              },
+              "timestamp":{
+                "type": "string"
+              },
+              "temperature":{
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+
+      "SleepResponse": {
+        "type": "object",
+        "properties":{
+          "data":{
+            "type": "object",
+            "properties":{
+              "date":{
+                "type": "string"
+              },
+              "total sleep":{
+                "type": "integer"
+              },
+              "rem sleep":{
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+
+      "ThemeResponse": {
+        "type": "object",
+        "properties":{
+          "data":{
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "changed_date": {
+                "type": "string"
+              },
+              "theme": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "OneLineResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+
+
+    "responses": {
+      "RegisterSuccess": {
+        "description":"New user has successfully registered",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "RegisterFail": {
+        "description":"Authentication failed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "LoginSuccess": {
+        "description":"New user has successfully logged in",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "LoginFail": {
+        "description":"Login failed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetSleepSuccess":{
+        "description":"Successfully updated the number of hours slept",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetSleepFail":{
+        "description":"No sleep recorded",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetStepsSuccess":{
+        "description":"Successfully updated the number of steps",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetStepsFail":{
+        "description":"No steps recorded",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetThemeSuccess":{
+        "description":"Successfully updated the theme of the smartband",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetTemperatureSuccess":{
+        "description":"Successfully updated the enviornment temperature",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetTemperatureFail":{
+        "description":"No temperature recorded",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      }
+    }
+  }
+}
