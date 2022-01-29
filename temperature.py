@@ -10,10 +10,9 @@ bp = Blueprint('temperature', __name__)
 
 @bp.route('/temperature', methods=('GET', 'POST'))
 @login_required
-def set_temperature():
-    if request.method == 'POST':
+def temperature():
+    def set_temperature():
         temp = request.form['temp']
-        error = None
 
         if not temp:
             return jsonify({'status': 'Temp is required.'}), 403
@@ -26,17 +25,26 @@ def set_temperature():
             (temp,)
         )
         db.commit()
+        return jsonify({'status': 'Temperature successfully recorded'}), 200
 
-    check = get_db().execute(
-        'SELECT id, timestamp, value'
-        ' FROM temperature'
-        ' ORDER BY timestamp DESC'
-    ).fetchone()
-    return jsonify({
-        'status': 'Temperature succesfully recorded',
-        'data': {
-            'id': check['id'],
-            'timestamp': check['timestamp'],
-            'temperature in °C': check['value']
-         }
-         }), 200
+    def get_temperature():
+        try:
+            check = get_db().execute(
+                'SELECT id, timestamp, value'
+                ' FROM temperature'
+                ' ORDER BY timestamp DESC'
+            ).fetchone()
+            return jsonify({
+                'data': {
+                    'id': check['id'],
+                    'timestamp': check['timestamp'],
+                    'temperature': check['value']
+                }
+                }), 200
+        except:
+            return jsonify({'status': 'No temperature recorded'}), 403
+        
+    if request.method == 'POST':
+        return set_temperature()
+    else:
+        return get_temperature()

@@ -19,7 +19,17 @@ def set_bpm():
         _ , m = hp.process(data, sample_rate)
         
         bpm = int(m['bpm'])
-
+        message = ""
+        if bpm < 60:
+            message = "Too Low"
+        elif bpm > 120:
+            message = "At RISK! Consult your doctor!"
+        elif bpm > 90:
+            message = "Too high"
+        else:
+            message = "Healthy"
+            
+        
         if not bpm:
             return jsonify({'status': 'BPM is required.'}), 403
 
@@ -36,12 +46,13 @@ def set_bpm():
         ' FROM bpm'
         ' ORDER BY timestamp DESC'
     ).fetchone()
-    return jsonify({
+    return jsonify({ 
         'status': 'bpm succesfully recorded/retrieved',
         'data': {
             'id': check['id'],
             'timestamp': check['timestamp'],
-            'BPM': check['value']
+            'BPM': check['value'],
+            'message': message,
         }
     }), 200
 

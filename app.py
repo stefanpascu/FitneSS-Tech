@@ -14,6 +14,7 @@ import steps
 import status_api
 import theme
 import status
+import sleep
 
 # Necessary monkey-patch
 eventlet.monkey_patch()
@@ -52,6 +53,7 @@ def create_app():
     app.register_blueprint(steps.bp)
     app.register_blueprint(status_api.bp)
     app.register_blueprint(theme.bp)
+    app.register_blueprint(sleep.bp)
 
     return app
 
