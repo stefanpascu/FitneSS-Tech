@@ -1,5 +1,4 @@
 import heartpy as hp
-import matplotlib.pyplot as plt
 
 from flask import (
     Blueprint, request, jsonify

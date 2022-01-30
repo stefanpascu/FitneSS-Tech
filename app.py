@@ -31,21 +31,6 @@ def create_app():
         SECRET_KEY='dev',
     )
 
-    @app.route('/')
-    def hello_world():
-        # Here I chose to start the periodic publishing after the root endpoint is called.
-        # It's not the best nor cleaneste approach, but will have to refactor it. 
-        # What is important is that the background_thread function is called on 
-        # a separate thread, so that publishing can happen while simultaneously
-        # HTTP endpoints are also functional.
-
-        global thread
-        if thread is None:
-            thread = Thread(target=background_thread)
-            thread.daemon = True
-            thread.start()
-        return 'Hello World!'
-
     db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(temperature.bp)
@@ -72,13 +57,18 @@ def create_mqtt_app():
     global socketio 
     socketio = SocketIO(app, async_mode="eventlet")
 
+    global thread
+    if thread is None:
+        thread = Thread(target=background_thread)
+        thread.daemon = True
+        thread.start()
+
     return mqtt
 
 # Start MQTT publishing
 
 # Function that every second publishes a message
 def background_thread():
-    count = 0
     while True:
         time.sleep(1)
         # Using app context is required because the get_status() functions
@@ -97,6 +87,5 @@ def run_socketio_app():
     socketio.run(app, host='localhost', port=5000, use_reloader=False, debug=True)
 
 if __name__ == '__main__':
-    # app.debug = True
     run_socketio_app()
     

@@ -3,3 +3,6 @@ Flask==2.0.2
 Flask-MQTT==1.1.1
 Flask-SocketIO==5.1.1
 pytest==6.2.5
+click~=8.0.3
+heartpy~=1.2.7
+Werkzeug~=2.0.2
