@@ -18,7 +18,7 @@ def steps():
         distance = round(distance,1)
         
         if not steps:
-            return jsonify({'status': 'Number of steps required.'}), 403
+            return jsonify({'status': 'Number of steps required.'}), 400
         
         
         db = get_db()
@@ -42,7 +42,7 @@ def steps():
             )
             db.commit()
     
-        return jsonify({'status': 'Steps successfully recorded'}), 200
+        return jsonify({'status': 'Steps successfully recorded'}), 201
 
 
     def get_steps():
@@ -60,7 +60,7 @@ def steps():
                 }
             }), 200
         except:
-            return jsonify({'status': 'No steps recorded'}), 403
+            return jsonify({'status': 'No steps recorded'}), 200
         
     if request.method == 'POST':
         return set_steps()

@@ -18,10 +18,10 @@ def sleep():
         remsleep = request.form['rem']
 
         if not totalsleep:
-            return jsonify({'status': 'number of hours of total sleep is required.'}), 403
+            return jsonify({'status': 'number of hours of total sleep is required.'}), 400
         
         if not remsleep:
-            return jsonify({'status': 'number of hours of rem sleep is required.'}), 403
+            return jsonify({'status': 'number of hours of rem sleep is required.'}), 400
 
         print(totalsleep)
         print(remsleep)
@@ -45,7 +45,7 @@ def sleep():
                 (totalsleep, remsleep, d1,)
             )
         db.commit()
-        return jsonify({'status': 'Number of hours of sleep successfully recorded'}), 200
+        return jsonify({'status': 'Number of hours of sleep successfully recorded'}), 201
 
     def get_sleep():
         try:
@@ -62,7 +62,7 @@ def sleep():
                 }
             }), 200
         except:
-            return jsonify({'status': 'No sleep recorded'}), 403
+            return jsonify({'status': 'No sleep recorded'}), 200
       
     if request.method == 'POST':
         return set_sleep()

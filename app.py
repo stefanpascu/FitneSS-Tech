@@ -24,11 +24,12 @@ mqtt = None
 socketio = None
 thread = None
 
-def create_app():
+def create_app(db_path='flaskr.sqlite'):
     global app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
+        DB_PATH=db_path
     )
 
     db.init_app(app)

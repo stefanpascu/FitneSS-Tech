@@ -15,7 +15,7 @@ def temperature():
         temp = request.form['temp']
 
         if not temp:
-            return jsonify({'status': 'Temp is required.'}), 403
+            return jsonify({'status': 'Temp is required.'}), 400
 
         print(temp)
         db = get_db()
@@ -25,7 +25,7 @@ def temperature():
             (temp,)
         )
         db.commit()
-        return jsonify({'status': 'Temperature successfully recorded'}), 200
+        return jsonify({'status': 'Temperature successfully recorded'}), 201
 
     def get_temperature():
         try:
@@ -42,7 +42,7 @@ def temperature():
                 }
                 }), 200
         except:
-            return jsonify({'status': 'No temperature recorded'}), 403
+            return jsonify({'status': 'No temperature recorded'}), 200
         
     if request.method == 'POST':
         return set_temperature()

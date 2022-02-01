@@ -83,6 +83,26 @@
     "/bpm":{
       "get":{
         "summary": "Get the beats per minute",
+        "operationId": "get_bpm",
+        "description": "Get the beats per minute",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "bpm succesfully recorded/retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BpmResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "summary": "Record the beats per minute",
         "operationId": "set_bpm",
         "description": "Get the beats per minute",
         "tags":[
@@ -95,6 +115,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BpmResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to retreive BPM",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetTemperatureFail"
                 }
               }
             }
@@ -121,16 +151,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "No steps recorded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/SetStepsFail"
-                }
-              }
-            }
           }
         }
       },
@@ -149,6 +169,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/responses/SetStepsSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetStepsFail"
                 }
               }
             }
@@ -175,16 +205,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "No temperature recorded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/SetTemperatureFail"
-                }
-              }
-            }
           }
         }
       },
@@ -203,6 +223,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/responses/SetTemperatureSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetTemperatureFail"
                 }
               }
             }
@@ -229,16 +259,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "No sleep recorded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/SetSleepFail"
-                }
-              }
-            }
           }
         }
       },
@@ -257,6 +277,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/responses/SetSleepSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Wrong arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetSleepFail"
                 }
               }
             }
@@ -304,6 +334,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Missing arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetThemeFail"
+                }
+              }
+            }
           }
         }
       }
@@ -336,7 +376,6 @@
 
   "components": {
     "schemas": {
-
       "StatusResponse": {
         "type": "object",
         "properties":{
@@ -616,7 +655,29 @@
       },
 
       "SetTemperatureFail":{
-        "description":"No temperature recorded",
+        "description":"Missing arguments",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetThemeFail":{
+        "description":"Theme not changed",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "GetBpmFail":{
+        "description":"BPM not retreived",
         "content":{
           "application/json": {
             "schema": {

@@ -47,32 +47,12 @@ Mai mult, as dori sa mentionez urmatoarele articole: <a href="https://www.resear
 
 Ar trebui să aveți instalate python3 și pip3.
 
-De asemenea, ar trebui să aveți un broker MQTT instalat.
+De asemenea, ar trebui să aveți Docker instalat.
 
 <br>
 
 ## Instalare Mosquitto MQTT Broker
-1. Instalați <a href="https://mosquitto.org/download/">utilitatile</a> Mosquitto pentru sistemul dvs. de operare.
-
-2. Creați un fișier de configurare numit mosquitto.conf pentru broker cu următorul conținut.
-
-`persistence false` <br>
-`log_dest stdout` <br>
-`allow_anonymous true` <br>
-`connection_messages true` 
-
-3. Porniți containerul Docker.
-
-`docker run --name mosquitto -p 1881:1881 -v pwd/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
-
-4. SPorniți containerul Docker folosind această comandă.
-`docker run --name mosquitto -p 1881:1881 -v pwd/mosquitto.conf:/mosquitto/config/mosquitto.conf -v pwd/password:/etc/mosquitto/passwd eclipse-mosquitto`
-
-5. Verificați dacă brokerul rulează publicând un mesaj către acesta.
-
-`mosquitto_pub -h localhost -p 1881 -t my-mqtt-topic -m "sample-msg-1"`
-
-6. Rulati: <br>
+1. Rulati: <br>
 
 `docker-compose up -d`
 
@@ -98,9 +78,6 @@ Windows: <br>
 
 5. Instalati librariile: <br>
 `pip install -r requirements.txt`
-
-Pentru instalarea librariei HeartPY : <br>
-`python -m pip install heartpy`
 
 6. Setați enviornment value pentru dezvoltare: <br>
 `export FLASK_ENV=development`
