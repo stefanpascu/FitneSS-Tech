@@ -15,10 +15,10 @@ def theme():
         theme = request.form['theme']
 
         if theme != 'dark' and theme != 'light':
-            return jsonify({'status': 'Theme can only be set to <dark> or <light>.'}), 403
+            return jsonify({'status': 'Theme can only be set to <dark> or <light>.'}), 400
 
         if not theme:
-            return jsonify({'status': 'Theme is required.'}), 403
+            return jsonify({'status': 'Theme is required.'}), 400
 
         db = get_db()
         
