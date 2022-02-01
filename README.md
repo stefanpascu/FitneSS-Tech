@@ -40,3 +40,83 @@ Mai mult, as dori sa mentionez urmatoarele articole: <a href="https://www.resear
 • <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html"> matplotlib.pyplot </a> oferă o modalitate implicită, asemănătoare MATLAB, de a reprezenta un grafic. De asemenea, deschide figurile pe ecran și acționează ca manager GUI pentru figuri.
 
 • <a href="https://sqlite.org/index.html"> SQLite </a> este o bibliotecă în limbaj C care implementează un motor de bază de date SQL mic, rapid, autonom, de înaltă fiabilitate, cu funcții complete.
+
+<br>
+
+## Cerințe preliminare
+
+Ar trebui să aveți instalate python3 și pip3.
+
+De asemenea, ar trebui să aveți un broker MQTT instalat.
+
+<br>
+
+## Instalare Mosquitto MQTT Broker
+1. Instalați <a href="https://mosquitto.org/download/">utilitatile</a> Mosquitto pentru sistemul dvs. de operare.
+
+2. Creați un fișier de configurare numit mosquitto.conf pentru broker cu următorul conținut.
+
+`persistence false` <br>
+`log_dest stdout` <br>
+`allow_anonymous true` <br>
+`connection_messages true` 
+
+3. Porniți containerul Docker.
+
+`docker run --name mosquitto -p 1881:1881 -v pwd/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto`
+
+4. SPorniți containerul Docker folosind această comandă.
+`docker run --name mosquitto -p 1881:1881 -v pwd/mosquitto.conf:/mosquitto/config/mosquitto.conf -v pwd/password:/etc/mosquitto/passwd eclipse-mosquitto`
+
+5. Verificați dacă brokerul rulează publicând un mesaj către acesta.
+
+`mosquitto_pub -h localhost -p 1881 -t my-mqtt-topic -m "sample-msg-1"`
+
+6. Rulati: <br>
+
+`docker-compose up -d`
+
+## Instalarea
+
+1. cd in acest proiect.
+
+2. Instalați venv dacă nu este deja instalat: <br>
+`pip install virtualenv`
+
+3. Creați un enviornment: <br>
+`python3 -m venv ./`
+
+>Windows: `python -m venv venv`
+
+4. Activati enviornment-ul:
+
+macOS/Linux: <br>
+`source venv/bin/activate`
+
+Windows: <br>
+`.venv\Scripts\activate.bat`
+
+5. Instalati librariile: <br>
+`pip install -r requirements.txt`
+
+Pentru instalarea librariei HeartPY : <br>
+`python -m pip install heartpy`
+
+6. Setați enviornment value pentru dezvoltare: <br>
+`export FLASK_ENV=development`
+
+CMD: <br>
+`set FLASK_ENV=development`
+
+PowerShell: <br>
+`$env:FLASK_ENV = "development"`
+
+7. Initializati baza de date: <br>
+`flask init-db`
+
+8. Rulati: <br>
+`flask run`
+
+>In cazul in care pasii 7. si 8. nu ruleaza deoarece "flask" nu este recunoscut ("The term 'flask' is not recognized"), puteti folosi comenzile `python -m flask init-db` si `python -m flask run`
+
+<br>
