@@ -83,6 +83,26 @@
     "/bpm":{
       "get":{
         "summary": "Get the beats per minute",
+        "operationId": "get_bpm",
+        "description": "Get the beats per minute",
+        "tags":[
+          "functions"
+        ],
+        "responses":{
+          "200": {
+            "description": "bpm succesfully recorded/retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BpmResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "summary": "Record the beats per minute",
         "operationId": "set_bpm",
         "description": "Get the beats per minute",
         "tags":[
@@ -144,6 +164,16 @@
         ],
         "responses":{
           "200": {
+            "description": "Steps succesfully recorded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetStepsSuccess"
+                }
+              }
+            }
+          },
+          "400": {
             "description": "Steps succesfully recorded",
             "content": {
               "application/json": {
