@@ -118,6 +118,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Failed to retreive BPM",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetTemperatureFail"
+                }
+              }
+            }
           }
         }
       }
@@ -138,16 +148,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/StepsResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "No steps recorded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/SetStepsFail"
                 }
               }
             }
@@ -174,11 +174,11 @@
             }
           },
           "400": {
-            "description": "Steps succesfully recorded",
+            "description": "Missing arguments",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/responses/SetStepsSuccess"
+                  "$ref": "#/components/responses/SetStepsFail"
                 }
               }
             }
@@ -205,16 +205,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "No temperature recorded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/SetTemperatureFail"
-                }
-              }
-            }
           }
         }
       },
@@ -233,6 +223,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/responses/SetTemperatureSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetTemperatureFail"
                 }
               }
             }
@@ -259,16 +259,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "No sleep recorded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/SetSleepFail"
-                }
-              }
-            }
           }
         }
       },
@@ -287,6 +277,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/responses/SetSleepSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Wrong arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetSleepFail"
                 }
               }
             }
@@ -334,6 +334,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Missing arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/SetThemeFail"
+                }
+              }
+            }
           }
         }
       }
@@ -366,7 +376,6 @@
 
   "components": {
     "schemas": {
-
       "StatusResponse": {
         "type": "object",
         "properties":{
@@ -646,7 +655,29 @@
       },
 
       "SetTemperatureFail":{
-        "description":"No temperature recorded",
+        "description":"Missing arguments",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "SetThemeFail":{
+        "description":"Theme not changed",
+        "content":{
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OneLineResponse"
+            }
+          }
+        }
+      },
+
+      "GetBpmFail":{
+        "description":"BPM not retreived",
         "content":{
           "application/json": {
             "schema": {
