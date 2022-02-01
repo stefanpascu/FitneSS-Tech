@@ -1,0 +1,36 @@
+asyncapi: '2.3.0'
+info:
+  title: FitneSS-Tech MQTT Api
+  version: 1.0.0
+channels:
+  python/mqtt:
+    publish:
+      message:
+        $ref: '#/components/messages/Status'
+components:
+  messages:
+    Status:
+      payload:
+        type: object
+        properties:
+          bpm:
+            type: string
+            description: BPM
+          theme:
+            type: string
+            description: Selected theme
+          distance:
+            type: string
+            description: Distance walked in meters
+          temperature:
+            type: string
+            description: Temperature in celsius
+          sleep:
+            type: object
+            description: Sleep data
+            properties:
+              'total hours of sleep':
+                type: string
+              'hours of rem sleep':
+                type: string
+
